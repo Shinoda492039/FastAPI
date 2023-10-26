@@ -9,12 +9,12 @@ app = FastAPI()
 class Question(BaseModel):
     content: str
 
-@app.post("/question")
+@app.post('/question')
 def question(question: Question):
     response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model='gpt-3.5-turbo',
         messages=[
-            {"role": "user", "content": question.content},
+            {'role': 'user', 'content': question.content},
         ],
     )
-    return {"answer": response.choices[0]["message"]["content"].strip()}
+    return {'answer': response.choices[0]['message']['content'].strip()}
