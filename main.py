@@ -26,6 +26,6 @@ async def get_chatgpt_response(user_message: UserMessage):
         )
         # レスポンスのチャンクを蓄積
         assistant_msg = ''.join(chunk['choices'][0]['delta'].get('content', '') for chunk in response)
-        return {"answer": assistant_msg}
+        return {'answer': assistant_msg}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

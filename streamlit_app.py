@@ -23,7 +23,7 @@ if user_msg:
         st.write(user_msg)
 
     # FastAPIバックエンドからアシスタントのレスポンスを取得
-    response = requests.post('https://fastapi-o0z4.onrender.com', json={"user_msg": user_msg})
+    response = requests.post('https://fastapi-o0z4.onrender.com', json={'user_msg': user_msg})
     if response.status_code == 200:
         assistant_msg = response.json()['answer']
         with st.chat_message(ASSISTANT_NAME):
