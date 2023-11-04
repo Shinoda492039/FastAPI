@@ -7,7 +7,7 @@ app = FastAPI()
 
 # 学習済みのモデルの読み込み
 model_list = openai.FineTuningJob.list()
-fine_tuned_model_name = model_list['data'][2]['fine_tuned_model']
+fine_tuned_model_name = model_list['data'][10]['fine_tuned_model']
 
 # POSTリクエスト用のモデル
 class UserMessage(BaseModel):
