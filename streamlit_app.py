@@ -22,15 +22,18 @@ if user_msg:
     with st.chat_message(USER_NAME):
         st.write(user_msg)
 
-    # FastAPIバックエンドからアシスタントのレスポンスを取得
+# FastAPIバックエンドからアシスタントのレスポンスを取得
     response = requests.post('https://fastapi-o0z4.onrender.com', json={'user_msg': user_msg})
+    assistant_msg = ''  # assistant_msgを初期化
     if response.status_code == 200:
-        assistant_msg = response.json()['answer']
+        assistant_msg = response.json().get('answer', '')
         with st.chat_message(ASSISTANT_NAME):
             st.write(assistant_msg)
     else:
         st.error('アシスタントからのレスポンス取得中にエラーが発生しました。')
 
-    # チャットログにメッセージを追加
+    # チャットログにユーザーメッセージを追加
     st.session_state.chat_log.append({'name': USER_NAME, 'msg': user_msg})
-    st.session_state.chat_log.append({'name': ASSISTANT_NAME, 'msg': assistant_msg})
+    # レスポンスが正常の場合のみ、アシスタントメッセージを追加
+    if assistant_msg:
+        st.session_state.chat_log.append({'name': ASSISTANT_NAME, 'msg': assistant_msg})
